@@ -105,15 +105,12 @@ class Album:
         query = "DELETE FROM albums WHERE id = ?"
         return self.db_manager.execute(query, (album_id,))
 
-    def get_all(self) -> list:
+    def get_all(self, artist_id: int) -> list:
         """
-        Получает список всех альбомов в базе данных.
-
-        Returns:
-            list: Список словарей с информацией о всех альбомах.
+        Получает список всех альбомов определенного исполнителя.
         """
-        query = "SELECT * FROM albums"
-        return self.db_manager.execute(query)
+        query = "SELECT * FROM albums WHERE artist_id =?"
+        return self.db_manager.execute(query, (artist_id,))
 
     def get_tracks(self, album_id: int) -> list:
         """

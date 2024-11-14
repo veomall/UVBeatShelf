@@ -159,6 +159,16 @@ class Track:
                 os.remove(track['cover_path'])
         query = "DELETE FROM tracks WHERE id = ?"
         return self.db_manager.execute(query, (track_id,))
+    
+    def get_all(self) -> list:
+        """
+        Получает список всех треков в библиотеке.
+
+        Returns:
+            list: Список словарей с информацией о треках.
+        """
+        query = "SELECT * FROM tracks"
+        return self.db_manager.execute(query)
 
     def _create_media_structure(self):
         """Создает структуру медиа-папки с подпапками для аудио и обложек."""
@@ -228,4 +238,3 @@ class Track:
         """
         minutes, seconds = divmod(duration, 60)
         return f"{minutes:02d}:{seconds:02d}"
-

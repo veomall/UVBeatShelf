@@ -215,6 +215,16 @@ class Playlist:
                 'total_duration': self._format_duration(total_duration)
             }
         return None
+    
+    def get_all(self) -> list:
+        """
+        Получает список всех плейлистов в библиотеке.
+
+        Returns:
+            list: Список словарей с информацией о плейлистах.
+        """
+        query = "SELECT * FROM playlists"
+        return self.db_manager.execute(query)
 
     def _format_duration(self, duration: int) -> str:
         """

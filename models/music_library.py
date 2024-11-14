@@ -61,6 +61,10 @@ class MusicLibrary:
     def delete_track(self, track_id: int) -> int:
         """Удаляет трек из библиотеки."""
         return self.tracks.delete(track_id)
+    
+    def get_all_tracks(self) -> list:
+        """Получает список всех треков в библиотеке."""
+        return self.tracks.get_all()
 
 
     # Методы для работы с плейлистами
@@ -99,6 +103,10 @@ class MusicLibrary:
     def get_playlist_tracks(self, playlist_id: int) -> list:
         """Получает список треков в плейлисте."""
         return self.playlists.get_tracks(playlist_id)
+    
+    def get_all_playlists(self) -> list:
+        """Получает список всех плейлистов."""
+        return self.playlists.get_all()
 
 
     # Методы для работы с исполнителями
@@ -140,7 +148,11 @@ class MusicLibrary:
     def get_artist_tracks(self, artist_id: int) -> list:
         """Получает список треков исполнителя."""
         return self.artists.get_tracks(artist_id)
-
+    
+    def get_all_artists(self) -> list:
+        """Получает список всех исполнителей."""
+        return self.artists.get_all()
+    
 
     # Методы для работы с альбомами
     def add_album(self, title: str, artist_id: int, year: int = None) -> int:
@@ -187,3 +199,7 @@ class MusicLibrary:
     def remove_track_from_album(self, track_id: int) -> int:
         """Удаляет трек из альбома."""
         return self.albums.remove_track(track_id)
+    
+    def get_all_albums_from_artist(self, artist_id: int) -> list:
+        """Получает список всех альбомов исполнителя."""
+        return self.albums.get_all(artist_id)
