@@ -203,3 +203,16 @@ class MusicLibrary:
     def get_all_albums_from_artist(self, artist_id: int) -> list:
         """Получает список всех альбомов исполнителя."""
         return self.albums.get_all(artist_id)
+    
+    def format_duration(self, duration: int) -> str:
+        """
+        Форматирует продолжительность трека в минуты и секунды.
+
+        Args:
+            duration (int): Продолжительность в секундах.
+
+        Returns:
+            str: Отформатированная строка продолжительности (MM:SS).
+        """
+        minutes, seconds = divmod(duration, 60)
+        return f"{minutes:02d}:{seconds:02d}"
