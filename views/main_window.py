@@ -1,6 +1,6 @@
-from PyQt5.QtWidgets import QMainWindow, QVBoxLayout, QWidget, QListWidget, QListWidgetItem
+from PyQt5.QtWidgets import QMainWindow, QVBoxLayout, QWidget
 from PyQt5.QtCore import Qt
-from .track_item import TrackItemWidget
+from .tracks_view import TracksView
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -13,23 +13,14 @@ class MainWindow(QMainWindow):
 
         layout = QVBoxLayout(central_widget)
 
-        self.track_list = QListWidget()
-        self.track_list.setSpacing(2)  # Добавляем небольшой отступ между элементами
-        layout.addWidget(self.track_list)
+        self.tracks_view = TracksView()
+        layout.addWidget(self.tracks_view)
+
+        # Подключаем сигнал track_play_requested к слоту on_track_play
+        self.tracks_view.track_play_requested.connect(self.on_track_play)
 
     def update_track_list(self, tracks):
-        self.track_list.clear()
-        for track in tracks:
-            track_widget = TrackItemWidget(track)
-            item = QListWidgetItem(self.track_list)
-            item.setSizeHint(track_widget.sizeHint())
-            self.track_list.addItem(item)
-            self.track_list.setItemWidget(item, track_widget)
-
-            # Подключаем сигнал play_clicked к слоту (который нужно будет создать в контроллере)
-            track_widget.play_clicked.connect(self.on_track_play)
+        self.tracks_view.update_tracks(tracks)
 
     def on_track_play(self, track_id):
-        # Этот метод будет вызываться при нажатии кнопки воспроизведения
-        # Здесь вы можете отправить сигнал контроллеру или вызвать соответствующий метод
         print(f"Play track with id: {track_id}")
